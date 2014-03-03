@@ -1,9 +1,4 @@
-require "sinatra/base"
-require "sinatra/reloader"
-require "slim"
-require "awesome_print"
-
-# 定义App类
+# 定义App类，本文件力争做到通用，新项目一般不需要修改本文件
 class App < Sinatra::Base
 
   configure :development do
