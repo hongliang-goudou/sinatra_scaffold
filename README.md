@@ -15,3 +15,7 @@ Sinatra搭建好了一切基础的空模板项目，包括以下修改：
 启动方法：
 
 执行```rackup```即可，默认端口9292，可使用```rackup -p 4567```来改变端口
+
+DB Migration文件建立方法：
+```rake db:create_migration NAME=xxxxxx```
+然后在db/migrate目录下即可找到migrate文件。其他rake用法可以执行```rake -T```查看。

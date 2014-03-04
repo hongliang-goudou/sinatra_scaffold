@@ -1,6 +1,14 @@
-# 定义App类，本文件力争做到通用，新项目一般不需要修改本文件
+# 定义数据库位置
+# set :database, "mysql2://user:password@host/db"
+set :database, "sqlite3:///db/dev.sqlite3"
+
+# 定义App类，本文件力争做到通用，新项目一般不需要修改本类及以下代码
 class App < Sinatra::Base
 
+  # 注册需要的扩展
+  register Sinatra::ActiveRecordExtension
+
+  # 注册开发环境下的特殊扩展，如reloader
   configure :development do
     register Sinatra::Reloader
   end
