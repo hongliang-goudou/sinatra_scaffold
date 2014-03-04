@@ -20,6 +20,7 @@ GEM
     atomic (1.1.15)
     awesome_print (1.2.0)
     backports (3.6.0)
+    bond (0.4.3)
     builder (3.1.4)
     daemons (1.1.9)
     eventmachine (1.0.3)
@@ -33,6 +34,14 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.1.1)
+    ripl (0.7.0)
+      bond (~> 0.4.2)
+    ripl-multi_line (0.3.1)
+      ripl (>= 0.3.6)
+    ripl-rack (0.2.1)
+      rack (>= 1.0)
+      rack-test (~> 0.6.2)
+      ripl (>= 0.7.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -59,6 +68,11 @@ GEM
     thread_safe (0.2.0)
       atomic (>= 1.1.7, < 2)
     tilt (1.4.1)
+    tux (0.3.0)
+      ripl (>= 0.3.5)
+      ripl-multi_line (>= 0.2.4)
+      ripl-rack (>= 0.2.0)
+      sinatra (>= 1.2.1)
     tzinfo (0.3.38)
 
 PLATFORMS
@@ -74,3 +88,4 @@ DEPENDENCIES
   slim
   sqlite3
   thin
+  tux
