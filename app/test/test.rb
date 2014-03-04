@@ -1,5 +1,3 @@
-class App < Sinatra::Base
-  get "/test" do
-    slim :test
-  end
+get "/test" do
+  slim :test
 end
