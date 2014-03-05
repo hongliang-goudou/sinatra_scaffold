@@ -8,8 +8,15 @@ meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
 - [].each do |s|
   link rel="dns-prefetch" href="http://#{s}"
 
-/ 在jQuery引入前就使用ready事件
-javascript:
-  (function(w,d,u){w.readyQ=[];w.bindReadyQ=[];function p(x,y){if(x=="ready"){w.bindReadyQ.push(y);}else{w.readyQ.push(x);}};var a={ready:p,bind:p};w.$=w.jQuery=function(f){if(f===d||f===u){return a}else{p(f)}}})(window,document);
+/ TODO: favicon、apple-touch-icon...
+/ link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"
+/ link rel="apple-touch-icon-precomposed" href="http://gtms03.alicdn.com/tps/i3/T1OjaVFl4dXXa.JOZB-114-114.png"
+/ link rel="apple-touch-icon" href="/touch-icon-iphone.png"
+/ link rel="apple-touch-icon" sizes="72x72" href="/touch-icon-ipad.png"
+/ link rel="apple-touch-icon" sizes="114x114" href="/touch-icon-iphone4.png"
 
-/ TODO: = favicon_link_tag "/favicon.ico"
+/ TODO: OpenSearch
+/ link rel="search" type="application/opensearchdescription+xml" title="" href="/opensearch.xml">
+
+/ Javascript
+script src="/js/jquery-1.11.0.js"
