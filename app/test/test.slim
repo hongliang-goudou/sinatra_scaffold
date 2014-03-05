@@ -1,8 +1,7 @@
 doctype html
 html
   head
-    == slim :_meta
-    title test
+    == slim :_head, locals: { title: "test", keywords: "test keywords", description: "test description" }
 
   body
     == slim :_header

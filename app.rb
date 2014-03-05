@@ -23,7 +23,6 @@ set :slim, {
 # 若URI为/admin/abc/def/ghi，且存在与app同级的admin根目录，则不会再去app目录下寻找
 helpers do
   def find_template(views, name, engine, &block)
-    ap name
     paths     = []
     parent    = ""
     path_info = request.path_info
