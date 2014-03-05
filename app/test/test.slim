@@ -1,4 +1,19 @@
+doctype html
 html
-head
-body
-  p test.html.slim
+  head
+    == slim :_meta
+    title test
+
+  body
+    == slim :_header
+    
+    p test.html.slim
+    p = User.last.loginname
+    javascript:
+      function foo() {
+        console.log(navigator.userAgent);
+      }
+
+      foo();
+
+    == slim :_footer

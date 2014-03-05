@@ -79,6 +79,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport (~> 4.0.3)
   awesome_print
   multi_json
   mysql2

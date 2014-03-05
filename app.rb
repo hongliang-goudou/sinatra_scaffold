@@ -8,11 +8,22 @@ Bundler.require :default, Sinatra::Application.environment
 # 定义数据库位置，MySQL写法：mysql2://user:password@host/db
 set :database, "sqlite3:///db/dev.sqlite3"
 
+# 配置slim，全站均不使用layout
+set :slim, {
+  layout:         false,
+  format:         :html5,
+  pretty:         development?,
+  sort_attrs:     false,
+  use_html_safe:  true,
+  streaming:      true,
+}
+
 # 定义我们自己的模板查找机制，使得controller和view文件可以在同一目录下
 # 若URI为/abc/def/ghi，则模板文件可以在app/abc/def/ghi这四个目录中的任意一级下
 # 若URI为/admin/abc/def/ghi，且存在与app同级的admin根目录，则不会再去app目录下寻找
 helpers do
   def find_template(views, name, engine, &block)
+    ap name
     paths     = []
     parent    = ""
     path_info = request.path_info
