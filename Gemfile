@@ -14,7 +14,7 @@ gem "sqlite3"
 gem "mysql2"
 gem "slim"
 gem "multi_json"
-
+gem "uglifier"
 gem "awesome_print"
 
 group :development do
