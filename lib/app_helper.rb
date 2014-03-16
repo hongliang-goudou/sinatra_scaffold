@@ -66,9 +66,10 @@ module UglifierHelper
 end
 
 helpers do
-  # 引用js文件的uglifier处理，传入的参数为不含/js路径前缀和.js扩展名后缀的字符串，如jquery
-  # 前端页面用法：== script "jquery"
-  def script(basename)
+  # 引用js文件的路径计算，对未处理过的js文件使用uglifier处理
+  # 传入的参数为不含/js路径前缀和.js扩展名后缀的字符串，如jquery
+  # 前端页面用法：script src=js_path("jquery")
+  def js_path(basename)
     basename = basename[0..-4] if uri.end_with?(".js")
     uri      = "/js/#{basename}.js"
 
@@ -78,6 +79,6 @@ helpers do
       uri      = UglifierHelper.precompile_js(filepath)[basedir.length..-1] if File.exists?(filepath)
     end
 
-    "<script src=\"#{uri}\"></script>"
+    uri
   end
 end

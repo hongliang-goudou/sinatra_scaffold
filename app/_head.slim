@@ -15,14 +15,14 @@ meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
 
 / SEO关键词
 - if defined?(keywords)
-  meta name="keywords" content=keywords
+  meta name="keywords" content=(keywords.is_a?(Array) ? keywords.join(",") : keywords.to_s)
 
 / SEO描述
 - if defined?(description)
   meta name="description" content=description
 
 / 在head头部仅加载jQuery，其他js文件放在body中用到了再加载
-== script "jquery"
+script src=js_path("jquery")
 
 / DNS预解析
 - [].each do |s|
