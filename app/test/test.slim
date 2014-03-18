@@ -2,17 +2,33 @@ doctype html
 html
   head
     == slim :_head, locals: { title: "test", keywords: ["test", "keywords"], description: "test description" }
+    link rel="stylesheet" type="text/css" href=css_url("bootstrap")
+    css:
+      .test {
+        /* 哎呦不错哦 */
+        text-decoration: underline;
+      }
+      .test ul {
+        /* 哎呦不错哦 */
+        text-decoration: underline;
+      }
+      .test ul > li {
+        /* 哎呦不错哦 */
+        text-decoration: underline;
+      }
 
   body
     == slim :_header
     
-    p test.html.slim
+
+    p.test test.html.slim
     p = User.last.loginname
 
     javascript:
       function foo() {
         // 我擦嘞~
-        console.log(navigator.userAgent);
+        var test = navigator.userAgent;
+        console.log(test);
       }
 
       foo();

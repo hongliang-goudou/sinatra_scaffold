@@ -15,6 +15,7 @@ gem "mysql2"
 gem "slim"
 gem "multi_json"
 gem "uglifier"
+gem "yui-compressor"
 gem "awesome_print"
 
 group :development do
