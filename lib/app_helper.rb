@@ -55,8 +55,6 @@ module UglifierHelper
 
       Dir.mkdir(basedir) unless Dir.exists?(basedir)
       File.write(newpath, result)
-
-      # 再生成一份gzip压缩过的版本
       Zlib::GzipWriter.open("#{newpath}.gz") { |gz| gz.write(result) }
     end
 
@@ -78,7 +76,7 @@ end
 # 扩展slim本身对javascript和css的处理，使得嵌入模板中的js/css内容能够被自动压缩处理
 module Slim
   class Embedded
-    class JavaScriptUglifierEngine < TagEngine
+    class JavaScriptUglifierEngine < Engine
       disable_option_validator!
 
       def on_slim_embedded(engine, body)
@@ -89,8 +87,6 @@ module Slim
         basename = "v#{md5}.js"
         md5path  = File.join(basedir, basename)
 
-        Dir.mkdir(basedir) unless Dir.exists?(basedir)
-
         # 如果该段js内容的缓存文件还不存在，压缩该js片断，创建一份缓存文件
         if File.exists?(md5path)
           compiled = File.read(md5path)
@@ -98,6 +94,7 @@ module Slim
         else
           compiled = UglifierHelper.precompile_js_content(content)
 
+          Dir.mkdir(basedir) unless Dir.exists?(basedir)
           File.write(md5path, compiled)
           Zlib::GzipWriter.open("#{md5path}.gz") { |gz| gz.write(compiled) }
         end
