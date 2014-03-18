@@ -29,10 +29,19 @@ end
 
 # 使用uglifier对js文件做压缩处理
 module UglifierHelper
+  @@uglifier = Uglifier.new(output: { comments: :none })
+
+  # 传入js字符串，返回压缩后的内容
+  def self.precompile_js_content(str)
+    @@uglifier.compile(str)
+  end
+
   # 处理单个js文件，传入文件完整路径，返回处理后的文件完整路径
-  def precompile_js(filepath)
-    md5     = Digest::MD5.hexdigest(File.read(filepath))
-    newpath = filepath.split(".").insert(-2, "v#{md5}").join(".")
+  def self.precompile_js(filepath)
+    md5      = Digest::MD5.hexdigest(File.read(filepath))
+    basedir  = File.join(File.dirname(filepath), "_")
+    basename = File.basename(filepath).split(".").insert(-2, "v#{md5}").join(".")
+    newpath  = File.join(basedir, basename)
 
     # 看看是否存在已经处理过的js文件，不存在的话需要uglifier处理一下
     unless File.exists?(newpath)
@@ -42,7 +51,9 @@ module UglifierHelper
       File.delete(*Dir[filepath.split(".").insert(-2, "v*").join(".") + "*"])
 
       # uglifier处理并将结果写入文件
-      result = Uglifier.compile(File.read(filepath), output: { comments: :none })
+      result = precompile_js_content(File.read(filepath))
+
+      Dir.mkdir(basedir) unless Dir.exists?(basedir)
       File.write(newpath, result)
 
       # 再生成一份gzip压缩过的版本
@@ -53,23 +64,64 @@ module UglifierHelper
   end
 
   # 对public/js目录下的所有js文件做处理
-  def precompile_all_js
-    Dir[File.join(Sinatra::Application.settings.root, "public/js/**/*.js")].each do |filepath|
-      v = filepath.split(".")[-2].to_s
-      next if v.length == 33 && v[0] == "v"
+  def self.precompile_all_js
+    Dir[File.join(Sinatra::Application.settings.root, "public/js/**/*.js")].reject do |filepath|
+      # /js/_/目录存放的是生成后的文件，不需要处理
+      filepath["/_/"]
 
+    end.each do |filepath|
       self.precompile_js(filepath)
     end
   end
-
-  module_function :precompile_js, :precompile_all_js
 end
 
+# 扩展slim本身对javascript和css的处理，使得嵌入模板中的js/css内容能够被自动压缩处理
+module Slim
+  class Embedded
+    class JavaScriptUglifierEngine < TagEngine
+      disable_option_validator!
+
+      def on_slim_embedded(engine, body)
+        # 根据这段js内容的md5值来判断内容是否已经被缓存过和压缩过
+        content  = collect_text(body)
+        md5      = Digest::MD5.hexdigest(content)
+        basedir  = File.join(Sinatra::Application.settings.root, "public", "js", "_")
+        basename = "v#{md5}.js"
+        md5path  = File.join(basedir, basename)
+
+        Dir.mkdir(basedir) unless Dir.exists?(basedir)
+
+        # 如果该段js内容的缓存文件还不存在，压缩该js片断，创建一份缓存文件
+        if File.exists?(md5path)
+          compiled = File.read(md5path)
+
+        else
+          compiled = UglifierHelper.precompile_js_content(content)
+
+          File.write(md5path, compiled)
+          Zlib::GzipWriter.open("#{md5path}.gz") { |gz| gz.write(compiled) }
+        end
+
+        # js片断长度超过500字节则视为内容过长，需要改为文件引用方式，而非内嵌到html中
+        if content.length > 500
+          [:static, "<script src=\"/js/_/#{basename}\"></script>\n"]
+
+        else
+          [:static, "<script>#{compiled}</script>\n"]
+        end
+      end
+    end
+
+    register :javascript, JavaScriptUglifierEngine
+  end
+end
+
+# 定义js_url、css_url等helper
 helpers do
   # 引用js文件的路径计算，对未处理过的js文件使用uglifier处理
   # 传入的参数为不含/js路径前缀和.js扩展名后缀的字符串，如jquery
-  # 前端页面用法：script src=js_path("jquery")
-  def js_path(basename)
+  # 前端页面用法：script src=js_url("jquery")
+  def js_url(basename)
     basename = basename[0..-4] if uri.end_with?(".js")
     uri      = "/js/#{basename}.js"
 
