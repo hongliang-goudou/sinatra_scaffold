@@ -19,7 +19,8 @@ html
 
   body
     == slim :_header
-    
+
+    / = Tilt[:slim].current_template
 
     p.test test.html.slim
     p = User.last.loginname
