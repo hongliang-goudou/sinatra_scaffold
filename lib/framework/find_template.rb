@@ -6,7 +6,7 @@ helpers do
     paths     = []
     parent    = ""
     path_info = request.path_info
-    root_uri  = path_info.split("/")[1]
+    root_uri  = path_info.split("/")[1].to_s
 
     # 判断URI请求是否为与app目录同级，同时将/db等特殊目录排除在外
     if ["", "db", "model", "lib", "public"].include?(root_uri) || !Dir.exists?(File.join(Sinatra::Application.root, root_uri))
