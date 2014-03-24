@@ -33,7 +33,7 @@ module Slim
         if hash[files[i+1]] - hash[f] >= 10
           # 找到断点了，删掉断点之后的所有文件，包括.gz文件
           File.delete(*files[(i+1)..-1].map { |f| "#{f}.gz"} ) rescue nil
-          File.delete(*files[(i+1)..-1]) rescue nil
+          File.delete(*files[(i+1)..-1])                       rescue nil
           break
         end
       end
