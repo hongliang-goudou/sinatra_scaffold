@@ -44,7 +44,7 @@ Sinatra搭建好了一切基础的空模板项目，包括以下修改：
 flash的用法与Rails一样，可以用```flash[:notice]```和```flash.now[:notice]```这样的形式来读取flash内容。在```app.rb```中默认配置为flash的行为是仅保留一个请求周期
 
 ###sanitize
-```Sanitize.clean("<html>...</html>")
+```Sanitize.clean("<html>...</html>")```
 
 ###csrf
 ```Rack::Csrf.csrf_metatag(env)```
