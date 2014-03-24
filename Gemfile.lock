@@ -27,14 +27,21 @@ GEM
     execjs (2.0.2)
     i18n (0.6.9)
     json (1.8.1)
+    mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.9.0)
     mysql2 (0.3.15)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
     rack (1.5.2)
+    rack-flash3 (1.0.5)
+      rack
     rack-protection (1.5.2)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack_csrf (2.4.0)
+      rack (>= 0.9)
     rake (10.1.1)
     ripl (0.7.0)
       bond (~> 0.4.2)
@@ -44,6 +51,8 @@ GEM
       rack (>= 1.0)
       rack-test (~> 0.6.2)
       ripl (>= 0.7.0)
+    sanitize (2.1.0)
+      nokogiri (>= 1.4.4)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -89,7 +98,10 @@ DEPENDENCIES
   awesome_print
   multi_json
   mysql2
+  rack-flash3
+  rack_csrf
   rake
+  sanitize
   sinatra (~> 1.4.4)
   sinatra-activerecord (~> 1.4.0)
   sinatra-contrib (~> 1.4.2)

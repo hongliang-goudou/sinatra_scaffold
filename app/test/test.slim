@@ -20,7 +20,11 @@ html
   body
     == slim :_header
 
-    / = Tilt[:slim].current_template
+    / = cookies[:test]
+    / = session[:test_session]
+    / = flash[:notice]
+
+    == csrf_tag
 
     p.test test.html.slim
     p = User.last.loginname
