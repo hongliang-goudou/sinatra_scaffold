@@ -16,7 +16,7 @@ Sinatra搭建好了一切基础的空模板项目，包括以下修改：
 
 1. 执行`rackup`即可，默认端口9292，可使用`rackup -p 4567`来改变端口
 2. 执行`ruby app.rb`也行，默认端口4567，可使用`ruby app.rb -p 9292`来改变端口
-3. ***生产环境***下启动Rainbows：`rainbows -c unicorn.rb -D config.ru`
+3. ***生产环境***下启动Rainbows：`rainbows -c config/unicorn.rb -D config.ru`
 
 ### 命令行调试：
 

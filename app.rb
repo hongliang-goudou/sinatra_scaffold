@@ -11,14 +11,14 @@ require "json"
 # 用bundler加载所有用到的gem
 Bundler.require :default,   Sinatra::Application.environment
 
-# 定义数据库位置
-set :database,              "sqlite3:///db/db.sqlite3" # mysql2://username:password@host/db
+# 定义数据库位置，因为涉及到用户名和密码，故引入config/database.rb文件，该文件不进入git库管理
+require File.join(Sinatra::Application.root, "/config/database.rb")
 
-# session相关
+# session相关配置
 set :session_secret,        "11e89ee74e7679201c1f0eeab8a66c27"
 use Rack::Session::Cookie,  expire_after: 2592000, secret: Sinatra::Application.session_secret
 use Rack::Flash,            sweep: true
-1
+
 # csrf
 use Rack::Csrf,             raise: Sinatra::Application.development?
 
@@ -38,9 +38,9 @@ set :slim, {
 
 # 引用项目中的其他.rb文件，更复杂的sinatra配置定义在lib/app_helper.rb中
 Dir["#{__dir__}/**/*.rb"].reject do |file|
-  # 根目录、db、public目录下的rb文件不引入
+  # 根目录、config、db、public目录下的rb文件不引入
   f = file[(Sinatra::Application.root.length + 1)..-1]
-  f.index("/").nil? || ["db", "public"].detect { |a| f.start_with?("#{a}/") }
+  f.index("/").nil? || ["config", "db", "public"].detect { |a| f.start_with?("#{a}/") }
 
 end.each do |file|
   require file

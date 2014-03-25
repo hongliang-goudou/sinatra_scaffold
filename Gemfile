@@ -22,6 +22,7 @@ gem "awesome_print"
 gem "sanitize"
 
 gem "rainbows"
+gem 'capistrano', '~> 3.1.0'
 
 group :development do
   gem "thin"
