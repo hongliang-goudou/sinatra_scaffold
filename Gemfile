@@ -21,6 +21,8 @@ gem "yui-compressor"
 gem "awesome_print"
 gem "sanitize"
 
+gem "rainbows"
+
 group :development do
   gem "thin"
   gem "tux"

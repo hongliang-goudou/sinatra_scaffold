@@ -3,7 +3,8 @@ get "/test" do
   # response.set_cookie(:test, value: "test123-value", path: "/", max_age: "3600")
   #
   # session存取：
-  # session[:test_session]
+  # 50.times { |i| session["test_session #{i}"] = "test session #{i}" }
+  ap session
   # session.delete(:test_session)
   #
   # flash设置：

@@ -9,18 +9,18 @@ require "sanitize"
 require "json"
 
 # 用bundler加载所有用到的gem
-Bundler.require :default, Sinatra::Application.environment
+Bundler.require :default,   Sinatra::Application.environment
 
 # 定义数据库位置
-set :database, "sqlite3:///db/db.sqlite3" # mysql2://username:password@host/db
+set :database,              "sqlite3:///db/db.sqlite3" # mysql2://username:password@host/db
 
 # session相关
-set :session_secret,      "11e89ee74e7679201c1f0eeab8a66c27"
-use Rack::Session::Pool,  expire_after: 2592000
-use Rack::Flash,          sweep: true
-
+set :session_secret,        "11e89ee74e7679201c1f0eeab8a66c27"
+use Rack::Session::Cookie,  expire_after: 2592000, secret: Sinatra::Application.session_secret
+use Rack::Flash,            sweep: true
+1
 # csrf
-use Rack::Csrf,           raise: Sinatra::Application.development?
+use Rack::Csrf,             raise: Sinatra::Application.development?
 
 # 开发模式下是否开启js/css文件的compress
 set :compress_js,   true
