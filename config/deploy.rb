@@ -17,6 +17,34 @@ set :unicorn_pid,   "/tmp/unicorn_#{fetch(:application)}.pid"
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 namespace :deploy do
+
+  desc "Bundle install"
+  task :bundle do
+    on roles(:app) do
+      within release_path do
+        execute :bundle, "install"
+      end
+    end
+  end
+
+  desc "Migrate"
+  task :bundle do
+    on roles(:app) do
+      within release_path do
+        execute :bundle, "exec rake db:migrate"
+      end
+    end
+  end
+
+  desc "Precompile"
+  task :bundle do
+    on roles(:app) do
+      within release_path do
+        execute :bundle, "exec rake precompile"
+      end
+    end
+  end
+
   desc "Start rainbows"
   task :start do
     on roles(:app) do
@@ -42,6 +70,9 @@ namespace :deploy do
     end
   end
 
+  after :updating,   :bundle
+  after :updating,   :migrate
+  after :updating,   :precompile
   after :publishing, :restart
 
 end
