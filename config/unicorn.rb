@@ -10,9 +10,10 @@ Rainbows! do
 end
 
 # 注意日志文件是在/var/log/nginx下，目录权限要可写
+# app_basename必须写死，不然在capistrano的目录结构下主目录名都会变成20140326033202这样的数字
 log_path     = "/var/log/nginx"
+app_basename = "sinatra_scaffold"
 app_root     = File.expand_path("../../", __FILE__)
-app_basename = File.basename(app_root)
 
 working_directory app_root
 

@@ -1,8 +1,7 @@
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
-set :app_root,          File.expand_path("../../", __FILE__)
-set :application,       File.basename(fetch(:app_root))
+set :application,       "sinatra_scaffold"
 set :repo_url,          "https://github.com/hongliang-goudou/sinatra_scaffold.git"
 set :scm,               :git
 set :branch,            :master
@@ -50,7 +49,7 @@ namespace :deploy do
   task :start do
     on roles(:app) do
       within release_path do
-        execute :bundle, "exec rainbows -c #{File.join(fetch(:app_root), "config/unicorn.rb")} -E production -D #{File.join(fetch(:app_root), "config.ru")}"
+        execute :bundle, "exec rainbows -c config/unicorn.rb -E production -D config.ru"
       end
     end
   end
