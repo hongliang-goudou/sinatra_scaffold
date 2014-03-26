@@ -1,5 +1,5 @@
-source "http://rubygems.org"
-#source "http://ruby.taobao.org"
+# source "http://rubygems.org"
+source "http://ruby.taobao.org"
 
 gem "sinatra",              "~> 1.4.4"
 gem "sinatra-activerecord", "~> 1.4.0"
