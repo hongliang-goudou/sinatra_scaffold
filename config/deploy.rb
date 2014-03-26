@@ -28,7 +28,7 @@ namespace :deploy do
   end
 
   desc "Migrate"
-  task :bundle do
+  task :migrate do
     on roles(:app) do
       within release_path do
         execute :bundle, "exec rake db:migrate"
@@ -37,7 +37,7 @@ namespace :deploy do
   end
 
   desc "Precompile"
-  task :bundle do
+  task :precompile do
     on roles(:app) do
       within release_path do
         execute :bundle, "exec rake precompile"
