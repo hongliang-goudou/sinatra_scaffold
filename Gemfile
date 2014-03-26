@@ -22,7 +22,9 @@ gem "awesome_print"
 gem "sanitize"
 
 gem "rainbows"
-gem 'capistrano', '~> 3.1.0'
+gem "capistrano",       "~> 3.1.0"
+gem "capistrano-bundler"
+gem 'rvm1-capistrano3', require: false
 
 group :development do
   gem "thin"

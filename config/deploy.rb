@@ -1,17 +1,18 @@
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
-set :app_root,      File.expand_path("../../", __FILE__)
-set :application,   File.basename(fetch(:app_root))
-set :repo_url,      "https://github.com/hongliang-goudou/sinatra_scaffold.git"
-set :scm,           :git
-set :branch,        :master
-set :deploy_via,    :remote_cache
-set :copy_exclude,  [".git"]
-set :linked_files,  %w{config/database.rb}
-set :linked_dirs,   %w{}
-set :keep_releases, 15
-set :unicorn_pid,   "/tmp/unicorn_#{fetch(:application)}.pid"
+set :app_root,          File.expand_path("../../", __FILE__)
+set :application,       File.basename(fetch(:app_root))
+set :repo_url,          "https://github.com/hongliang-goudou/sinatra_scaffold.git"
+set :scm,               :git
+set :branch,            :master
+set :deploy_via,        :remote_cache
+set :copy_exclude,      [".git"]
+set :linked_files,      %w{config/database.rb}
+set :linked_dirs,       %w{}
+set :keep_releases,     15
+set :unicorn_pid,       "/tmp/unicorn_#{fetch(:application)}.pid"
+set :rvm1_ruby_version, "2.1.1"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
