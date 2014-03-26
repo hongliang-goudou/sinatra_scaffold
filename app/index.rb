@@ -1,3 +1,3 @@
 get "/" do
-  "Hello, Sinatra!"
+  "Hello, Sinatra with capistrano!"
 end
