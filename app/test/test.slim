@@ -26,7 +26,8 @@ html
 
     == csrf_tag
 
-    p.test test.slim
+    == Sinatra::Application.production?
+    p.test test.sli12m
     p = User.last.loginname
 
     javascript:

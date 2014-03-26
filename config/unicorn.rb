@@ -11,7 +11,7 @@ end
 
 # 注意日志文件是在/var/log/nginx下，目录权限要可写
 log_path     = "/var/log/nginx"
-app_root     = File.expand_path("../", __FILE__)
+app_root     = File.expand_path("../../", __FILE__)
 app_basename = File.basename(app_root)
 
 working_directory app_root
