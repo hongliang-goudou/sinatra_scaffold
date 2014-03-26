@@ -33,6 +33,10 @@ Sinatra搭建好了一切基础的空模板项目，包括以下修改：
 
 执行`rackup -E production`可以在生产环境下启动Thin
 
+部署：`cap production deploy`
+
+启动/停止Rainbows：`cap production deploy:start` `cap production deploy:stop`
+
 ###cookie
 读取cookie狠简单，在.rb和.slim中可以直接使用`cookies[:test]`来读取cookie内容
 
