@@ -48,8 +48,8 @@ namespace :deploy do
   desc "Start rainbows"
   task :start do
     on roles(:app) do
-      within release_path do
-        execute :bundle, "exec rainbows -c config/unicorn.rb -E production -D config.ru"
+      within current_path do
+        execute :bundle, "exec rainbows -c #{current_path}/config/unicorn.rb -E production -D #{current_path}/config.ru"
       end
     end
   end

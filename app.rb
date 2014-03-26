@@ -37,7 +37,7 @@ set :slim, {
 }
 
 # 引用项目中的其他.rb文件，更复杂的sinatra配置定义在lib/app_helper.rb中
-Dir["#{__dir__}/**/*.rb"].reject do |file|
+Dir[File.join(Sinatra::Application.root, "**/*.rb")].reject do |file|
   # 根目录、config、db、public目录下的rb文件不引入
   f = file[(Sinatra::Application.root.length + 1)..-1]
   f.index("/").nil? || ["config", "db", "public"].detect { |a| f.start_with?("#{a}/") }
